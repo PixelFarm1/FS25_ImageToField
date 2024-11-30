@@ -61,7 +61,7 @@ class createCoordinates:
 
             field_coordinates = [
                 (round((point[0][0] - (width // 2)) / ratio, 2),
-                 round(((height // 2) - point[0][1]) / ratio, 2))
+                round(((point[0][1] - (height // 2)) / ratio), 2))  # Flip Y-axis
                 for contour in contours for point in contour
             ]
 
@@ -69,7 +69,7 @@ class createCoordinates:
             center_x, center_y = (0, 0)
             if M["m00"] != 0:
                 center_x = round((int(M["m10"] / M["m00"]) - (width // 2)) / ratio, 2)
-                center_y = round(((height // 2) - int(M["m01"] / M["m00"])) / ratio, 2)
+                center_y = round(((int(M["m01"] / M["m00"]) - (height // 2)) / ratio), 2)  # Flip Y-axis
 
             adjusted_coordinates = [
                 (round(coord[0] - center_x, 2), round(coord[1] - center_y, 2))

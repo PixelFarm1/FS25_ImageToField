@@ -1,10 +1,13 @@
-from scripts.gui import App  # type: ignore
-from scripts.imageConverter import imageConvert  # type: ignore
-from scripts.imageToCoordinates import createCoordinates  # type: ignore
-from scripts.processFieldLoops import ProcessFieldLoops  # type: ignore
-from scripts.simplifyFieldLoops import SimplifyFieldLoops  # type: ignore
-from scripts.markFieldLoops import MarkFieldLoops  # type: ignore
-from scripts.finalizeFieldCoordinates import FinalizeFieldCoordinates  # type: ignore
+from scripts.gui import App  
+from scripts.imageConverter import imageConvert  
+from scripts.imageToCoordinates import createCoordinates  
+from scripts.processFieldLoops import ProcessFieldLoops  
+from scripts.simplifyFieldLoops import SimplifyFieldLoops  
+from scripts.markFieldLoops import MarkFieldLoops  
+from scripts.finalizeFieldCoordinates import FinalizeFieldCoordinates  
+import xml.etree.ElementTree as ET
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import sys
 import os
 
@@ -29,7 +32,7 @@ def ensure_output_folder_exists():
     return output_folder
 
 def run_pipeline(input_file, simplificationStrength, distanceThreshold, borderReduction, demSize):
-    print("Starting the pipeline...")
+    print("Starting the tool...")
 
     # Ensure the 'output' folder exists
     output_folder = ensure_output_folder_exists()
@@ -73,7 +76,10 @@ class MyApp(App):
         sys.stdout = TextRedirector(self.log_box)
         sys.stderr = TextRedirector(self.log_box)
         self.run_button.configure(command=self.start_pipeline_thread)
-        self.ood_button.configure(command=self.open_output_folder)
+        self.viz_button.configure(command=self.visualize_fields)
+
+        
+
 
     def start_pipeline_thread(self):
         import threading
@@ -89,10 +95,80 @@ class MyApp(App):
 
     def run_pipeline_safe(self, input_file, simplificationStrength, distanceThreshold, borderReduction, demSize):
         try:
-            print("Running pipeline...")
+            print("Running tool...")
             final_output = run_pipeline(input_file, simplificationStrength, distanceThreshold, borderReduction, demSize)
         except Exception as e:
-            self.log_message(f"Pipeline error: {e}")
+            self.log_message(f"Error: {e}")
+
+    
+
+    def visualize_fields(self):
+        """
+        Searches the output folder for final_field_coordinates.xml and visualizes the fields.
+        If the file is not found, prompts the user to run the pipeline first.
+        """
+        # Determine the output folder location
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        output_folder = os.path.join(script_dir, "output")
+        final_output_file = os.path.join(output_folder, "final_field_coordinates.xml")
+
+        if not os.path.exists(final_output_file):
+            self.log_message(f"Error: {final_output_file} not found. Please run the tool first.")
+            return
+
+        try:
+            self.log_message("Visualizing fields...")
+            self.display_plot_in_gui(final_output_file)
+            self.log_message("Visualization completed successfully.")
+        except Exception as e:
+            self.log_message(f"Visualization error: {e}")
+
+    def display_plot_in_gui(self, file_path):
+        """
+        Renders the visualization directly in the GUI.
+        """
+        # Parse and generate the plot
+        fields, centers = parse_all_field_coordinates_with_center_flipped_plane(file_path)
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+        for field_id, coords in fields.items():
+            x, y = zip(*coords)
+            ax.plot(x, y, label=f"Field {field_id}", color="black")
+            center_x, center_y = centers[field_id]
+            ax.text(
+                center_x, center_y, f"ID {field_id}", fontsize=9, ha='center', va='center',
+                bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="#659927", alpha=0.8)
+            )
+
+        ax.set_xlabel("X Coordinate")
+        ax.set_ylabel("Z Coordinate ")
+        ax.set_title("Visualization of All Fields")
+        ax.grid(True)
+
+        # Embed the Matplotlib figure into the Tkinter frame
+        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill="both", expand=True)  # Use pack to display the plot widget
+
+def parse_all_field_coordinates_with_center_flipped_plane(file_path):
+    tree = ET.parse(file_path)
+    root = tree.getroot()
+
+    fields = {}
+    centers = {}
+    for field in root.findall("Field"):
+        field_id = field.attrib.get("ID")
+        center_x = float(field.attrib.get("X"))
+        center_y = -float(field.attrib.get("Y"))  # Flip the Y-plane for the center
+
+        coordinates = [
+            (center_x + float(coord.attrib["X"]), center_y - float(coord.attrib["Y"]))  # Flip Y-plane for center and coords
+            for coord in field.findall("coordinate")
+        ]
+        fields[field_id] = coordinates
+        centers[field_id] = (center_x, center_y)
+    return fields, centers
+
 
 if __name__ == "__main__":
     app = MyApp()

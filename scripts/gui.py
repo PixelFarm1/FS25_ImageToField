@@ -6,7 +6,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("FS25 Image to fields")
-        self.geometry("920x800")
+        self.geometry("1800x800")
         ctk.set_appearance_mode("dark")
         theme_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "theme.json")
         if not os.path.exists(theme_path):
@@ -130,10 +130,19 @@ class App(ctk.CTk):
         self.run_button = ctk.CTkButton(self.run_frame, text="Run", height=50, font=("",20))
         self.run_button.grid(column=0, row=0, pady=5, padx=5, sticky="ew")
 
+        self.viz_button = ctk.CTkButton(self.run_frame, text="Visualize fields", height=30, font=("",20))
+        self.viz_button.grid(column=0, row=1, pady=5, padx=5, sticky="ew")
+
+        # Add a frame for the plot
+        self.plot_frame = ctk.CTkFrame(self, height=600, width=600)
+        self.plot_frame.grid(row=0, column=2, rowspan=2, sticky="nsew", padx=10, pady=10)
+        self.plot_frame.grid_propagate(False)  # Prevent resizing based on content
+
         # Configure grid weights
         self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(0, weight=2)
         self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(2, weight=3)
 
         self.slider1_label_tooltip = "Controls the level of simplification applied to the geometry."
         self.slider2_label_tooltip = "Sets the maximum allowable distance between points to class it as an 'island'."

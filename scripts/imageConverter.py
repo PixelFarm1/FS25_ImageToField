@@ -44,7 +44,7 @@ class imageConvert:
         colored_image = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.uint8)
 
         # Assign a unique value to the red channel of each white island
-        print(f"ModulImage analysise1: Coloring {len(contours)} white islands...")
+        print(f"Image analysis: Coloring {len(contours)} white islands...")
         for i, contour in enumerate(contours):
             # Get the red channel value for the current island
             red_value = i + 1
@@ -57,7 +57,7 @@ class imageConvert:
             colored_image[:, :, 2] = np.where((mask > 0) & (image == 255), red_value, colored_image[:, :, 2])
 
         # Save the colored image as an 8bpc RGB PNG
-        output_file = os.path.join(output_dir, "module1_output.png")
+        output_file = os.path.join(output_dir, "processed_image.png")
         print(f"Image analysis: Saving processed image to {output_file}")
         cv2.imwrite(output_file, colored_image, [cv2.IMWRITE_PNG_COMPRESSION, 0])
 
