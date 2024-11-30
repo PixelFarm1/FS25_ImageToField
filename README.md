@@ -34,4 +34,39 @@ FS25_ImageToFields is a tool for easy creation of field dimensions for FS25. It 
 11. Execute the script. This will clear all existing painted field ground, generate the fields from coordinates, align them to the terrain and then repaint the fields.
 
 
+# Deutsche Übersetzung
+#### Für alle Code-Zauberer, die sich das hier ansehen ... Es tut mir leid. Ich habe fast keine Programmiererfahrung, und ein Großteil des Codes entstand durch meine Arbeit mit der Hilfe von ChatGPT. Der Code ist mit Sicherheit nicht perfekt strukturiert.
 
+FS25_ImageToFields ist ein Tool zur einfachen Erstellung von Feldgeometrien für FS25. Es nimmt eine Schwarz-Weiß-Feldmaske als Eingabe und erstellt basierend auf dem Bild Koordinaten. Durch eine Reihe von Verarbeitungsschritten wird sichergestellt, dass die Koordinaten in einer Weise geordnet sind, die komplexe Feldformen ermöglicht. Die final verarbeiteten Koordinaten werden durch die xmlToFields.lua-Datei verarbeitet, die Felder und deren jeweilige Polygone erstellt. Das GE-Skript richtet außerdem die Polygonpunkte am Gelände aus und übermalt alle Felder. Alles, was am Ende noch zu tun ist, ist die Funktion "Repaint Farmlands" im FieldToolkit von GE auszuführen.
+
+![image](https://github.com/user-attachments/assets/cb449c51-b168-4172-9053-d082ce425be3)
+
+## So sieht eine korrekte Feldmaske aus.
+![image](https://github.com/user-attachments/assets/072c551c-b220-487e-8f28-8bebe1ef1e2a)
+
+## Anleitung zur Verwendung
+1. Stellen Sie sicher, dass Sie eine saubere Feldmaske haben.
+Es dürfen keine Fehler in der Maske vorhanden sein, da dies zu einem schlechten Ergebnis führen kann. Häufige Fehler sind:
+
+Vereinzelte weiße Pixel in Bereichen, die keine Felder sind.
+Schwarze Pixel in weißen Feldbereichen.
+
+2. Starten Sie die .exe aus der neuesten Version (oder main.py, falls Sie mehr Arbeit investieren möchten).
+
+3. Klicken Sie auf "Browse" und wählen Sie Ihre Feldmaske aus.
+
+4.Stellen Sie sicher, dass Sie die korrekte DEM-Größe einstellen. Dies ist die Auflösung Ihrer DEM.png im Datenordner Ihrer Karte minus 1 Pixel.
+
+5. Ändern Sie beim ersten Durchlauf die Standardeinstellungen nicht. Verwenden Sie die Standardwerte und ändern Sie die Einstellungen erst nach dem ersten Durchlauf, wenn Sie Anpassungen am Ergebnis vornehmen möchten.
+
+6. Drücken Sie auf "Run", um die Verarbeitung zu starten. Der Fortschritt wird im Protokoll angezeigt, und das Ausgabeverzeichnis wird dort angegeben.
+
+7. Nach Abschluss der Verarbeitung können Sie auf "Visualize fields" klicken, um das endgültige Ergebnis anzuzeigen. Mit der Schaltfläche "Toggle Field IDs" können Sie die Feld-IDs ein- oder ausblenden.
+
+8. Öffnen Sie den Giants Editor (GE) und stellen Sie sicher, dass Sie eine "Fields"-Gruppe mit den richtigen Attributen haben. Entfernen Sie außerdem alle untergeordneten Objekte der "Fields"-Transformationsgruppe.
+
+9. Erstellen Sie ein neues Skript in GE und fügen Sie den Inhalt von xmlToFields.lua in die Datei ein. Alternativ können Sie die .lua-Datei in den Skriptordner von GE legen.
+
+10. Passen Sie den Dateipfad am Ende der .lua-Datei an. Der Pfad sollte auf die final_field_coordinates.xml zeigen.
+
+11. Führen Sie das Skript aus.Es wird alle vorhandenen gemalten Feldflächen löschen, die Felder aus den Koordinaten generieren, sie an das Gelände anpassen und die Felder neu bemalen.
