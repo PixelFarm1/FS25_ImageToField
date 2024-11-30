@@ -38,6 +38,31 @@ FS25_ImageToFields is a tool for easy creation of field dimensions for FS25. It 
 
 11. Execute the script. This will clear all existing painted field ground, generate the fields from coordinates, align them to the terrain and then repaint the fields.
 
+## Suggested workflow for converting FS22 maps
+### Prerequisites: A FS22 map where all fields are painted with terrainDetail
+
+1. Convert the densityMap_ground.gdm using the converter at GDN
+
+2. Open the converted file in GIMP and att a new layer with white fill
+
+3. If the image turns all red and not white. Press Image -> Mode -> RGB to change to RGB mode. Then recreate the layer with white fill.
+
+4. Set the blending mode to "Dodge" and merge the 2 layers
+
+5. Press Select -> By color (Shift + O) and press one of the now bright red areas.
+
+6. Look for any mistakes like missed pixels, stray pixels etc. They are more easy to spot when in the select mode. 
+
+7. When you are done correcting the image. Create a new layer and with white fill.
+
+8. Change blending mode to "HSV Saturation" and merge the layers.
+
+9. Export with these settings: 
+![image](https://github.com/user-attachments/assets/b032a1dc-792b-4017-9600-4cf197ea9113)
+
+10. Run the FS25_ImageToFields tool according to the instruction above
+
+
 
 # Deutsche Übersetzung
 #### Für alle Code-Zauberer, die sich das hier ansehen ... Es tut mir leid. Ich habe fast keine Programmiererfahrung, und ein Großteil des Codes entstand durch meine Arbeit mit der Hilfe von ChatGPT. Der Code ist mit Sicherheit nicht perfekt strukturiert.
@@ -77,26 +102,4 @@ Schwarze Pixel in weißen Feldbereichen.
 11. Führen Sie das Skript aus.Es wird alle vorhandenen gemalten Feldflächen löschen, die Felder aus den Koordinaten generieren, sie an das Gelände anpassen und die Felder neu bemalen.
 
 
-# Suggested workflow for converting FS22 maps
-## Prerequisites: A FS22 map where all fields are painted with terrainDetail
 
-1. Convert the densityMap_ground.gdm using the converter at GDN
-
-2. Open the converted file in GIMP and att a new layer with white fill
-
-3. If the image turns all red and not white. Press Image -> Mode -> RGB to change to RGB mode. Then recreate the layer with white fill.
-
-4. Set the blending mode to "Dodge" and merge the 2 layers
-
-5. Press Select -> By color (Shift + O) and press one of the now bright red areas.
-
-6. Look for any mistakes like missed pixels, stray pixels etc. They are more easy to spot when in the select mode. 
-
-7. When you are done correcting the image. Create a new layer and with white fill.
-
-8. Change blending mode to "HSV Saturation" and merge the layers.
-
-9. Export with these settings: 
-![image](https://github.com/user-attachments/assets/b032a1dc-792b-4017-9600-4cf197ea9113)
-
-10. Run the FS25_ImageToFields tool according to the instruction above
