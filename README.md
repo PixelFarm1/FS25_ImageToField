@@ -1,5 +1,7 @@
 # FS25_ImageToFields
 
+> ## Download version 0.1.0 here: https://github.com/PixelFarm1/FS25_ImageToFields/releases/tag/Release
+
 ## German translation below ![image](https://github.com/user-attachments/assets/15acf8fb-474c-4326-a28c-885c138b1e4a)
 
 
