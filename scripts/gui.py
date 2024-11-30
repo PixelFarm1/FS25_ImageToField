@@ -122,21 +122,29 @@ class App(ctk.CTk):
         self.slider3.bind("<B1-Motion>", lambda e: self.slider3_dis.delete(0, "end") or self.slider3_dis.insert(0, int(self.slider3.get())))
         self.slider3_dis.bind("<Return>", lambda e: self.slider3.set(int(self.slider3_dis.get())))
 
+        # Run frame
         self.run_frame = ctk.CTkFrame(self.input_frame)
         self.run_frame.grid(row=2, column=0, padx=10, pady=10, sticky="new")
         self.run_frame.grid_columnconfigure(0, weight=1)
 
         # Run button
-        self.run_button = ctk.CTkButton(self.run_frame, text="Run", height=50, font=("",20))
+        self.run_button = ctk.CTkButton(self.run_frame, text="Run", height=50, font=("", 20))
         self.run_button.grid(column=0, row=0, pady=5, padx=5, sticky="ew")
 
-        self.viz_button = ctk.CTkButton(self.run_frame, text="Visualize fields", height=30, font=("",20))
+        # Visualize button
+        self.viz_button = ctk.CTkButton(self.run_frame, text="Visualize fields", height=30, font=("", 20))
         self.viz_button.grid(column=0, row=1, pady=5, padx=5, sticky="ew")
+
+        # Toggle Field IDs button
+        self.toggle_button = ctk.CTkButton(self.run_frame, text="Toggle Field IDs", height=30, font=("", 15))
+        self.toggle_button.grid(column=0, row=2, pady=5, padx=5, sticky="ew")
+
 
         # Add a frame for the plot
         self.plot_frame = ctk.CTkFrame(self, height=600, width=600)
-        self.plot_frame.grid(row=0, column=2, rowspan=2, sticky="nsew", padx=10, pady=10)
+        self.plot_frame.grid(row=0, column=2, sticky="nsew", padx=10, pady=10)
         self.plot_frame.grid_propagate(False)  # Prevent resizing based on content
+
 
         # Configure grid weights
         self.grid_rowconfigure(0, weight=1)
