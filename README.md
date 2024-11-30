@@ -2,8 +2,11 @@
 
 FS25_ImageToField is a tool for easy creation of field dimensions for FS25. It takes a white on black field mask as input and creates coordinates based on the image. Through some processing it verifies that the coordinates are ordered in a way that allows for complex field shapes. The final processed coordinates are run through the xmlToFields.lua which creates fields and their respective polygons. The GE script also aligns the polygonpoints to the terrain and repaints all fields. All you have to do at the end is run the repaint farmalnds function in the fieldToolkit of GE.
 
-
 ![image](https://github.com/user-attachments/assets/cb449c51-b168-4172-9053-d082ce425be3)
+
+## This is what a proper field mask looks like
+![image](https://github.com/user-attachments/assets/072c551c-b220-487e-8f28-8bebe1ef1e2a)
+
 
 ## How to use
 1. Make sure that you have a clean field mask. There can be no mistakes in it or you will get a bad result. Common mistakes are: stray white pixels in non-field areas or black pixels in white areas.
