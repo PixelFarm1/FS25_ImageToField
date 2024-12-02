@@ -55,12 +55,14 @@ FS25_ImageToFields is a tool for easy creation of field dimensions for FS25. It 
 
 7. When you are done correcting the image. Create a new layer and with white fill.
 
-8. Change blending mode to "HSV Saturation" and merge the layers.
+8. Change blending mode to "HSV Saturation" and your field areas should turn white.
 
-9. Export with these settings: 
+9. Merge the layers and repeat step 6 to find any mistakes in the mask. 
+
+10. Export with these settings: 
 ![image](https://github.com/user-attachments/assets/b032a1dc-792b-4017-9600-4cf197ea9113)
 
-10. Run the FS25_ImageToFields tool according to the instruction above
+11. Run the FS25_ImageToFields tool according to the instruction above
 
 
 
