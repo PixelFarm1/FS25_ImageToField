@@ -39,7 +39,7 @@ FS25_ImageToFields is a tool for easy creation of field dimensions for FS25. It 
 11. Execute the script. This will clear all existing painted field ground, generate the fields from coordinates, align them to the terrain and then repaint the fields.
 
 ## Suggested workflow for converting FS22 maps
-### Prerequisites: A FS22 map where all fields are painted with terrainDetail
+### Prerequisites: A FS22 map where all fields are painted with terrainDetail (May work if you take the densityMap_ground.gdm from a FS22 savegame too, not tested)
 
 1. Convert the densityMap_ground.gdm using the converter at GDN
 
