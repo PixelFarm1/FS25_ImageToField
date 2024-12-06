@@ -16,7 +16,7 @@ FS25_ImageToFields is a tool for easy creation of field dimensions for FS25. It 
 
 
 ## How to use
-1. Make sure that you have a clean field mask. There can be no mistakes in it or you will get a bad result. Common mistakes are: stray white pixels in non-field areas or black pixels in white areas.
+1. Make sure that you have a clean field mask. There can be no mistakes in it or you will get a bad result or errors from the program. Common mistakes are: stray white pixels in non-field areas or black pixels in white areas. Too little space between 2 field boundarys (drive an imaginary 1x1 pixel size tractor along all field borders of the mask, if you cannot pass -> fix that area).
 
 2. Run the .exe from the latest release (or main.py if you want more work)
 
